@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 
-export async function GET(request: NextRequest) {
-  const id = parseInt(request.nextUrl.searchParams.get("id")!);
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const id = parseInt(params.id);
 
   const note = await prisma.notes.findUnique({
     where: {
@@ -33,8 +36,11 @@ export async function GET(request: NextRequest) {
   );
 }
 
-export async function PATCH(request: NextRequest) {
-  const id = parseInt(request.nextUrl.searchParams.get("id")!);
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const id = parseInt(params.id);
 
   const { content } = await request.json();
 
@@ -58,8 +64,11 @@ export async function PATCH(request: NextRequest) {
   );
 }
 
-export async function DELETE(request: NextRequest) {
-  const id = parseInt(request.nextUrl.searchParams.get("id")!);
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const id = parseInt(params.id);
 
   await prisma.notes.delete({
     where: {
