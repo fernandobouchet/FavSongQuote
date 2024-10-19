@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { createClient } from "@/utils/supabase/server";
+import quoteSchema from "../validators/quoteSchema";
 
 export async function POST(request: NextRequest) {
-  const { content } = await request.json();
+  const requestData = await request.json();
+  const validatedRequestData = quoteSchema.parse(requestData);
+
   const supabase = await createClient();
 
   const { data } = await supabase.auth.getUser();
@@ -13,7 +16,12 @@ export async function POST(request: NextRequest) {
   }
 
   const note = await prisma.quote.create({
-    data: { ...content, authorId: data.user.id },
+    data: {
+      text: validatedRequestData.text,
+      song: validatedRequestData.song,
+      band: validatedRequestData.band,
+      authorId: data.user.id,
+    },
   });
 
   return NextResponse.json(

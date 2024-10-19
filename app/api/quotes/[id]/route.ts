@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { createClient } from "@/utils/supabase/server";
+import quoteSchema from "../../validators/quoteSchema";
 
 export async function GET(
   request: NextRequest,
@@ -51,15 +52,18 @@ export async function PATCH(
 
   const id = parseInt(params.id);
 
-  const { content } = await request.json();
+  const requestData = await request.json();
+  const validatedRequestData = quoteSchema.parse(requestData);
 
   const note = await prisma.quote.update({
     where: {
       id,
     },
     data: {
-      ...content,
-      updateAt: new Date(),
+      text: validatedRequestData.text,
+      song: validatedRequestData.song,
+      band: validatedRequestData.band,
+      updatedAt: new Date(),
       authorId: data.user.id,
     },
   });
@@ -78,6 +82,13 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const supabase = await createClient();
+
+  const { data } = await supabase.auth.getUser();
+
+  if (!data.user) {
+    throw new Error("User is not logged in.");
+  }
   const id = parseInt(params.id);
 
   await prisma.quote.delete({
