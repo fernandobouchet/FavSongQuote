@@ -14,7 +14,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { PlusCircle } from "lucide-react";
 
 const formSchema = z.object({
   text: z
@@ -33,7 +32,11 @@ const formSchema = z.object({
   }),
 });
 
-export default function CreateQuoteForm() {
+interface Props {
+  onClose: () => void;
+}
+
+export default function CreateQuoteForm({ onClose }: Props) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -54,6 +57,7 @@ export default function CreateQuoteForm() {
       });
       if (res.ok) {
         console.log("Success!");
+        onClose();
       } else {
         console.log("Oops! Error.");
       }
@@ -64,7 +68,10 @@ export default function CreateQuoteForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 w-full px-4 lg:py-4"
+      >
         <FormField
           control={form.control}
           name="text"
@@ -105,7 +112,7 @@ export default function CreateQuoteForm() {
           )}
         />
         <Button type="submit" className="w-full">
-          <PlusCircle className="mr-2 h-4 w-4" /> Add Quote
+          Add Quote
         </Button>
       </form>
     </Form>
