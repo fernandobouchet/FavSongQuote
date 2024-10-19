@@ -14,6 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { postNewQuote } from "@/lib/services/postNewQuote";
 
 const formSchema = z.object({
   text: z
@@ -48,18 +49,9 @@ export default function CreateQuoteForm({ onClose }: Props) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const res = await fetch(`${location.origin}/api/quotes`, {
-        method: "POST",
-        body: JSON.stringify(values),
-        headers: {
-          "content-type": "application/json",
-        },
-      });
-      if (res.ok) {
-        console.log("Success!");
+      const data = await postNewQuote(values);
+      if (data) {
         onClose();
-      } else {
-        console.log("Oops! Error.");
       }
     } catch (error) {
       console.log(error);

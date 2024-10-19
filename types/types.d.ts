@@ -10,6 +10,8 @@ type Quote = {
   updatedAt: Date;
 };
 
+type newQuote = Pick<Quote, "text" | "song" | "band">;
+
 type Profile = {
   id: string;
   name: string;
