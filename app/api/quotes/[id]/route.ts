@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
+import { createClient } from "@/utils/supabase/server";
 
 export async function GET(
   request: NextRequest,
@@ -7,7 +8,7 @@ export async function GET(
 ) {
   const id = parseInt(params.id);
 
-  const note = await prisma.notes.findUnique({
+  const note = await prisma.quote.findUnique({
     where: {
       id,
     },
@@ -40,17 +41,26 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const supabase = await createClient();
+
+  const { data } = await supabase.auth.getUser();
+
+  if (!data.user) {
+    throw new Error("User is not logged in.");
+  }
+
   const id = parseInt(params.id);
 
   const { content } = await request.json();
 
-  const note = await prisma.notes.update({
+  const note = await prisma.quote.update({
     where: {
       id,
     },
     data: {
-      content,
+      ...content,
       updateAt: new Date(),
+      authorId: data.user.id,
     },
   });
 
@@ -70,7 +80,7 @@ export async function DELETE(
 ) {
   const id = parseInt(params.id);
 
-  await prisma.notes.delete({
+  await prisma.quote.delete({
     where: {
       id,
     },

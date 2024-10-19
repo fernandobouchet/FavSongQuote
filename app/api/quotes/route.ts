@@ -1,11 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
+import { createClient } from "@/utils/supabase/server";
 
 export async function POST(request: NextRequest) {
   const { content } = await request.json();
+  const supabase = await createClient();
 
-  const note = await prisma.notes.create({
-    data: { content },
+  const { data } = await supabase.auth.getUser();
+
+  if (!data.user) {
+    throw new Error("User is not logged in.");
+  }
+
+  const note = await prisma.quote.create({
+    data: { ...content, authorId: data.user.id },
   });
 
   return NextResponse.json(
@@ -19,7 +27,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  const notes = await prisma.notes.findMany();
+  const notes = await prisma.quote.findMany();
 
   return NextResponse.json(
     {
