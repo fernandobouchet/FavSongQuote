@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const quoteSchema = z.object({
-  text: z.string().min(10).max(50),
+  text: z.string().min(10).max(80),
   song: z.string().min(2),
   band: z.string().min(2),
 });

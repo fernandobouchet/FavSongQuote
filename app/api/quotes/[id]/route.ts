@@ -13,7 +13,7 @@ export async function GET(
     where: {
       id,
     },
-    include: { author: true },
+    include: { author: true, likes: true },
   });
 
   if (!note) {

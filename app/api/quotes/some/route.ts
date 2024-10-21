@@ -4,7 +4,7 @@ import prisma from "@/lib/db";
 export async function GET() {
   const notes = await prisma.quote.findMany({
     take: 5,
-    include: { author: true },
+    include: { author: true, likes: true },
   });
 
   return NextResponse.json(

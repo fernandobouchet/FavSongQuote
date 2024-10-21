@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   const notes = await prisma.quote.findMany({
-    include: { author: true },
+    include: { author: true, likes: true },
   });
 
   return NextResponse.json(
