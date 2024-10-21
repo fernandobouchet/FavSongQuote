@@ -1,6 +1,6 @@
 const getAllQuotes = async () => {
   try {
-    const res = await fetch(`${process.env.API_URL}/quotes`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_HOME_URL}/api/quotes`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
