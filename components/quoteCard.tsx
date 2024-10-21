@@ -12,12 +12,12 @@ export default function QuoteCard({ quote }: Props) {
     <Card key={quote.id} className="h-full bg-card text-card-foreground">
       <CardContent className="relative p-6">
         <div className="flex items-center justify-between mb-4">
-          <Music className="w-8 h-8 text-indigo-500 dark:text-indigo-400" />
+          <Music className="w-8 h-8 text-primary" />
           <Button
             variant="ghost"
             size="sm"
             onClick={() => console.log(quote.id)}
-            className="text-indigo-600 dark:text-indigo-400"
+            className="text-primary"
           >
             <ThumbsUp className="h-4 w-4 mr-2" />
             {quote.likes?.length}
