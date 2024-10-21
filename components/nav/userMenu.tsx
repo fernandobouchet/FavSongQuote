@@ -20,7 +20,10 @@ export default async function UserMenu() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src="/avatars/01.png" alt="@usuario" />
+            <AvatarImage
+              src={user?.user_metadata.avatar_url}
+              alt={`${user?.user_metadata.full_name} avatar image.`}
+            />
             <AvatarFallback>
               {user?.email?.slice(0, 2).toUpperCase()}
             </AvatarFallback>
