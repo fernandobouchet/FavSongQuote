@@ -1,5 +1,5 @@
 import { getAllQuotes } from "@/lib/services/getAllQuotes";
-import QuoteCard from "@/components/quoteCard";
+import QuoteCard from "@/components/quoteCard/quoteCard";
 
 export default async function QuoteCardsContainer() {
   const quotes = await getAllQuotes();

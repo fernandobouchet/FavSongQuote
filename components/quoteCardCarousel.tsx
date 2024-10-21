@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import QuoteCard from "@/components/quoteCard";
+import QuoteCard from "@/components/quoteCard/quoteCard";
 import { getSomeQuotes } from "@/lib/services/getSomeQuotes";
 
 export default function QuoteCardCarousel() {
