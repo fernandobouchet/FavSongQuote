@@ -10,7 +10,7 @@ export default function LoginButton() {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_HOME_URL}/api/auth/callback`,
+        redirectTo: `${location.origin}/auth/callback`,
       },
     });
   };
