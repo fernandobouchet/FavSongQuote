@@ -43,9 +43,9 @@ model Quote {
 
 model Like {
   id        Int      @id @default(autoincrement())
-  user      Profile  @relation(fields: [userId], references: [id])
+  user      Profile  @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  quote     Quote    @relation(fields: [quoteId], references: [id])
+  quote     Quote    @relation(fields: [quoteId], references: [id], onDelete: Cascade)
   quoteId   Int
   createdAt DateTime @default(now())
 
