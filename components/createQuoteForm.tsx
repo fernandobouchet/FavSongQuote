@@ -22,8 +22,8 @@ const formSchema = z.object({
     .min(10, {
       message: "Quote must be at least 10 characters.",
     })
-    .max(50, {
-      message: "Quote must be at 50 characters max.",
+    .max(80, {
+      message: "Quote must be at 80 characters max.",
     }),
   song: z.string().min(2, {
     message: "Song name must be at least 2 characters.",
