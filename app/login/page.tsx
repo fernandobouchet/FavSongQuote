@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import LoginButton from "@/components/loginButton";
+import QuoteCardCarousel from "@/components/quoteCardCarousel";
 
 export default function Page() {
   return (
@@ -21,7 +22,9 @@ export default function Page() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="relative h-80 overflow-hidden"></div>
+          <div className="relative h-80 overflow-hidden">
+            <QuoteCardCarousel />
+          </div>
           <Card className="shadow-md">
             <CardContent className="pt-6">
               <p className="text-center mb-4">
