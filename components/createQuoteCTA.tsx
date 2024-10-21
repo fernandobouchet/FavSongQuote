@@ -32,7 +32,7 @@ export default function CreateQuoteCTA() {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button className="w-1/2 mx-auto">
+          <Button className="w-full lg:w-1/2 mx-auto">
             <PlusCircle className="mr-2 h-4 w-4" />
             Create quote
           </Button>
@@ -54,7 +54,7 @@ export default function CreateQuoteCTA() {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button className="w-full">
+        <Button className="w-full lg:w-1/2 mx-auto">
           <PlusCircle className="mr-2 h-4 w-4" />
           Create quote
         </Button>
