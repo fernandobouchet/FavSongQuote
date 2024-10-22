@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { postNewQuote } from "@/lib/services/postNewQuote";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   text: z
@@ -51,9 +52,11 @@ export default function CreateQuoteForm({ onClose }: Props) {
     try {
       const data = await postNewQuote(values);
       if (data) {
+        toast.success("Quote has been added!");
         onClose();
       }
     } catch (error) {
+      toast.error("Something bad happened, please try again later.");
       console.log(error);
     }
   }
