@@ -32,6 +32,7 @@ model Quote {
   text      String
   song      String
   band      String
+  videoUrl  String
   author    Profile   @relation(fields: [authorId], references: [id])
   authorId  String
   likes     Like[]
