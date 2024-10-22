@@ -9,9 +9,11 @@ export async function POST(request: NextRequest) {
 
   const supabase = await createClient();
 
-  const { data } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!data.user) {
+  if (!user) {
     throw new Error("User is not logged in.");
   }
 
@@ -20,7 +22,7 @@ export async function POST(request: NextRequest) {
       text: validatedRequestData.text,
       song: validatedRequestData.song,
       band: validatedRequestData.band,
-      authorId: data.user.id,
+      authorId: user.id,
     },
   });
 

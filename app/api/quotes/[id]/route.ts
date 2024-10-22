@@ -45,9 +45,11 @@ export async function PATCH(
 ) {
   const supabase = await createClient();
 
-  const { data } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!data.user) {
+  if (!user) {
     throw new Error("User is not logged in.");
   }
 
@@ -65,7 +67,7 @@ export async function PATCH(
       song: validatedRequestData.song,
       band: validatedRequestData.band,
       updatedAt: new Date(),
-      authorId: data.user.id,
+      authorId: user.id,
     },
   });
 
@@ -85,9 +87,11 @@ export async function DELETE(
 ) {
   const supabase = await createClient();
 
-  const { data } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!data.user) {
+  if (!user) {
     throw new Error("User is not logged in.");
   }
   const id = parseInt(params.id);

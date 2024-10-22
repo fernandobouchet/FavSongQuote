@@ -8,9 +8,11 @@ export async function POST(
 ) {
   const supabase = await createClient();
 
-  const { data } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!data.user) {
+  if (!user) {
     throw new Error("User is not logged in.");
   }
 
@@ -25,9 +27,7 @@ export async function POST(
     },
   });
 
-  const previousLike = quote?.likes.find(
-    (like) => like.userId === data.user.id
-  );
+  const previousLike = quote?.likes.find((like) => like.userId === user.id);
 
   if (previousLike) {
     await prisma.like.delete({
@@ -39,7 +39,7 @@ export async function POST(
     await prisma.like.create({
       data: {
         quoteId: id,
-        userId: data.user.id,
+        userId: user.id,
       },
     });
   }
