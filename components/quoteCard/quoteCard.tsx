@@ -1,7 +1,8 @@
 "use client";
 import { Music } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import QuoteLike from "./quoteLike";
+import QuoteDelete from "./quoteDelete";
 
 interface Props {
   quote: Quote;
@@ -9,8 +10,11 @@ interface Props {
 
 export default function QuoteCard({ quote }: Props) {
   return (
-    <Card key={quote.id} className="h-full bg-card text-card-foreground">
-      <CardContent className="relative p-6 text-center">
+    <Card
+      key={quote.id}
+      className="flex flex-col h-full bg-card text-card-foreground"
+    >
+      <CardContent className="p-6 text-center flex-grow">
         <div className="flex items-center justify-between mb-4">
           <Music className="w-5 h-5 text-primary" />
           <QuoteLike quote={quote} />
@@ -27,6 +31,9 @@ export default function QuoteCard({ quote }: Props) {
           </p>
         </div>
       </CardContent>
+      <CardFooter className="flex full justify-end mt-auto">
+        <QuoteDelete quote={quote} />
+      </CardFooter>
     </Card>
   );
 }
