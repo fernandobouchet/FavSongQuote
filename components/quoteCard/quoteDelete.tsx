@@ -18,8 +18,8 @@ export default function QuoteDelete({ quote }: Props) {
 
   async function handlelike() {
     try {
-      const data = await deleteQuote(quote.id);
-      if (data) {
+      //const data = await deleteQuote(quote.id);
+      if (true) {
         toast.success("Quote has been deleted!");
         router.refresh();
       } else {

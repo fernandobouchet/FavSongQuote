@@ -1,9 +1,9 @@
 "use client";
 import { Music } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import QuoteLike from "./quoteLike";
-import QuoteDelete from "./quoteDelete";
-import QuoteVideoLink from "./quoteVideoLink";
+import QuoteLike from "@/components/quoteCard/quoteLike";
+import QuoteVideoLink from "@/components/quoteCard/quoteVideoLink";
+import DeleteQuoteAlert from "@/components/deleteQuoteAlert";
 
 interface Props {
   quote: Quote;
@@ -20,7 +20,7 @@ export default function QuoteCard({ quote, isHome }: Props) {
         <div className="flex items-center justify-between mb-4">
           <Music className="w-5 h-5 text-primary" />
           <div className="flex gap-2">
-            {isHome && <QuoteDelete quote={quote} />}
+            {isHome && <DeleteQuoteAlert quote={quote} />}
             <QuoteLike quote={quote} />
           </div>
         </div>
