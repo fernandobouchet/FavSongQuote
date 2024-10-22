@@ -18,6 +18,20 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "FavSongQuotes",
   description: "Website to share and like your favorite song quotes.",
+  icons: {
+    icon: [
+      {
+        media: "(prefers-color-scheme: light)",
+        type: "image/svg+xml",
+        url: "/favicon_light.svg",
+      },
+      {
+        media: "(prefers-color-scheme: dark)",
+        type: "image/svg+xml",
+        url: "/favicon_dark.svg",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
