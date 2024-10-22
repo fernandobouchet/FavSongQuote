@@ -24,8 +24,8 @@ const formSchema = z.object({
     .min(10, {
       message: "Quote must be at least 10 characters.",
     })
-    .max(80, {
-      message: "Quote must be at 80 characters max.",
+    .max(100, {
+      message: "Quote must be at 100 characters max.",
     }),
   song: z.string().min(2, {
     message: "Song name must be at least 2 characters.",
@@ -33,6 +33,12 @@ const formSchema = z.object({
   band: z.string().min(2, {
     message: "Band or artist name must be at least 2 characters.",
   }),
+  videoUrl: z
+    .string()
+    .min(1, {
+      message: "You must add the video URL from Youtube.",
+    })
+    .url(),
 });
 
 interface Props {
@@ -46,6 +52,7 @@ export default function CreateQuoteForm({ onClose }: Props) {
       text: "",
       song: "",
       band: "",
+      videoUrl: "",
     },
   });
 
@@ -58,9 +65,10 @@ export default function CreateQuoteForm({ onClose }: Props) {
         toast.success("Quote has been added!");
         onClose();
         router.refresh();
+      } else {
+        toast.error("Something bad happened, please try again later.");
       }
     } catch (error) {
-      toast.error("Something bad happened, please try again later.");
       console.log(error);
     }
   }
@@ -105,6 +113,22 @@ export default function CreateQuoteForm({ onClose }: Props) {
               <FormLabel>Band</FormLabel>
               <FormControl>
                 <Input placeholder="Name of the band / artist" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="videoUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Video Url</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Link to the song video on YouTube"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

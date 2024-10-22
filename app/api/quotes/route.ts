@@ -17,11 +17,12 @@ export async function POST(request: NextRequest) {
     throw new Error("User is not logged in.");
   }
 
-  const note = await prisma.quote.create({
+  const quote = await prisma.quote.create({
     data: {
       text: validatedRequestData.text,
       song: validatedRequestData.song,
       band: validatedRequestData.band,
+      videoUrl: validatedRequestData.videoUrl,
       authorId: user.id,
     },
   });
@@ -29,8 +30,8 @@ export async function POST(request: NextRequest) {
   return NextResponse.json(
     {
       success: true,
-      message: "Note created successfully!",
-      data: note,
+      message: "Quote created successfully!",
+      data: quote,
     },
     { status: 201 }
   );

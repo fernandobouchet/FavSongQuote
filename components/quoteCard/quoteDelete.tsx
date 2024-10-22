@@ -22,9 +22,10 @@ export default function QuoteDelete({ quote }: Props) {
       if (data) {
         toast.success("Quote has been deleted!");
         router.refresh();
+      } else {
+        toast.error("Something bad happened, please try again later.");
       }
     } catch (error) {
-      toast.error("Something bad happened, please try again later.");
       console.log(error);
     }
   }

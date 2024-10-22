@@ -20,9 +20,10 @@ export default function QuoteLike({ quote }: Props) {
       if (data) {
         toast.success("Quote like has been updated!");
         router.refresh();
+      } else {
+        toast.error("Something bad happened, please try again later.");
       }
     } catch (error) {
-      toast.error("Something bad happened, please try again later.");
       console.log(error);
     }
   }

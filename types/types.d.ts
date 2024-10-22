@@ -3,6 +3,7 @@ type Quote = {
   text: string;
   song: string;
   band: string;
+  videoUrl: string;
   author: Profile;
   authorId: string;
   likes: Like[];
@@ -10,7 +11,7 @@ type Quote = {
   updatedAt: Date;
 };
 
-type newQuote = Pick<Quote, "text" | "song" | "band">;
+type newQuote = Pick<Quote, "text" | "song" | "band" | "videoUrl">;
 
 type Profile = {
   id: string;
