@@ -36,7 +36,7 @@ export default function QuoteCardCarousel() {
                 : "opacity-0 translate-x-full"
             }`}
           >
-            <QuoteCard quote={quote} />
+            <QuoteCard quote={quote} isHome={false} />
           </div>
         ))}
       </div>

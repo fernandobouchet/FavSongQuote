@@ -7,9 +7,10 @@ import QuoteVideoLink from "./quoteVideoLink";
 
 interface Props {
   quote: Quote;
+  isHome: boolean;
 }
 
-export default function QuoteCard({ quote }: Props) {
+export default function QuoteCard({ quote, isHome }: Props) {
   return (
     <Card
       key={quote.id}
@@ -19,7 +20,7 @@ export default function QuoteCard({ quote }: Props) {
         <div className="flex items-center justify-between mb-4">
           <Music className="w-5 h-5 text-primary" />
           <div className="flex gap-2">
-            <QuoteDelete quote={quote} />
+            {isHome && <QuoteDelete quote={quote} />}
             <QuoteLike quote={quote} />
           </div>
         </div>
@@ -34,9 +35,11 @@ export default function QuoteCard({ quote }: Props) {
             {quote.band}
           </p>
         </div>
-        <div className="pt-4">
-          <QuoteVideoLink quote={quote} />
-        </div>
+        {isHome && (
+          <div className="pt-4">
+            <QuoteVideoLink quote={quote} />
+          </div>
+        )}
       </CardContent>
     </Card>
   );
