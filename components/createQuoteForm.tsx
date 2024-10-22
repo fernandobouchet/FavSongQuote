@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { postNewQuote } from "@/lib/services/postNewQuote";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   text: z
@@ -48,12 +49,15 @@ export default function CreateQuoteForm({ onClose }: Props) {
     },
   });
 
+  const router = useRouter();
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const data = await postNewQuote(values);
       if (data) {
         toast.success("Quote has been added!");
         onClose();
+        router.refresh();
       }
     } catch (error) {
       toast.error("Something bad happened, please try again later.");

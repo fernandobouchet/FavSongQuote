@@ -10,9 +10,7 @@ const postLikeQuote = async (quoteId: number) => {
       }
     );
     if (res.ok) {
-      console.log("Success!");
-      const { data } = await res.json();
-      return data;
+      return true;
     } else {
       console.log("Oops! Error.");
     }
