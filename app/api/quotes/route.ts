@@ -38,15 +38,15 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  const notes = await prisma.quote.findMany({
-    include: { author: true, likes: true },
+  const quotes = await prisma.quote.findMany({
+    include: { likes: true },
   });
 
   return NextResponse.json(
     {
       success: true,
-      message: "List data notes",
-      data: notes,
+      message: "List data quotes",
+      data: quotes,
     },
     {
       status: 200,

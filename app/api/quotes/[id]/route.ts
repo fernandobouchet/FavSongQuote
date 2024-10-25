@@ -7,20 +7,31 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    throw new Error("User is not logged in.");
+  }
+
   const id = parseInt(params.id);
 
-  const note = await prisma.quote.findUnique({
+  const quote = await prisma.quote.findUnique({
     where: {
       id,
+      authorId: user.id,
     },
     include: { author: true, likes: true },
   });
 
-  if (!note) {
+  if (!quote) {
     return NextResponse.json(
       {
         success: true,
-        message: "Detail data note not found!",
+        message: "Detail data quote not found!",
         data: null,
       },
       { status: 404 }
@@ -30,8 +41,8 @@ export async function GET(
   return NextResponse.json(
     {
       success: true,
-      message: "Detail data note",
-      data: note,
+      message: "Detail data quote",
+      data: quote,
     },
     {
       status: 200,
@@ -58,9 +69,10 @@ export async function PATCH(
   const requestData = await request.json();
   const validatedRequestData = quoteSchema.parse(requestData);
 
-  const note = await prisma.quote.update({
+  const quote = await prisma.quote.update({
     where: {
       id,
+      authorId: user.id,
     },
     data: {
       text: validatedRequestData.text,
@@ -74,8 +86,8 @@ export async function PATCH(
   return NextResponse.json(
     {
       success: true,
-      message: "Note updated successfully!",
-      data: note,
+      message: "Quote updated successfully!",
+      data: quote,
     },
     { status: 200 }
   );
@@ -94,18 +106,20 @@ export async function DELETE(
   if (!user) {
     throw new Error("User is not logged in.");
   }
+
   const id = parseInt(params.id);
 
   await prisma.quote.delete({
     where: {
       id,
+      authorId: user.id,
     },
   });
 
   return NextResponse.json(
     {
       success: true,
-      message: "Note deleted successfully!",
+      message: "Quote deleted successfully!",
     },
     { status: 200 }
   );

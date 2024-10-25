@@ -2,16 +2,16 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 
 export async function GET() {
-  const notes = await prisma.quote.findMany({
+  const quotes = await prisma.quote.findMany({
     take: 5,
-    include: { author: true, likes: true },
+    include: { likes: true },
   });
 
   return NextResponse.json(
     {
       success: true,
       message: "List data of 5 notes",
-      data: notes,
+      data: quotes,
     },
     {
       status: 200,
