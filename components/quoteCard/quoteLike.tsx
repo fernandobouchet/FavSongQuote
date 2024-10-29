@@ -34,7 +34,7 @@ export default function QuoteLike({ quote }: Props) {
       size="sm"
       disabled={!user}
       onClick={handlelike}
-      className="text-primary"
+      className="text-indigo-500"
     >
       <ThumbsUp className="h-6 w-6 mr-2" />
       {quote.likes?.length || 0}

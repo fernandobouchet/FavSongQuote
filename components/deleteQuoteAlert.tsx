@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useFetchUser } from "@/hooks/useGetUser";
+import { deleteQuote } from "@/lib/services/deleteQuote";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -27,8 +28,8 @@ export default function DeleteQuoteAlert({ quote }: Props) {
 
   async function handlelike() {
     try {
-      //const data = await deleteQuote(quote.id);
-      if (true) {
+      const data = await deleteQuote(quote.id);
+      if (data) {
         toast.success("Quote has been deleted!");
         router.refresh();
       } else {
@@ -46,7 +47,7 @@ export default function DeleteQuoteAlert({ quote }: Props) {
           variant="ghost"
           size="sm"
           disabled={!user || user.id !== quote.authorId}
-          className="text-primary"
+          className="text-indigo-500 mx-auto"
         >
           <Trash2 className="h-6 w-6" />
         </Button>

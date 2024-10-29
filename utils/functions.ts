@@ -10,4 +10,12 @@ const getFormattedDate = (isoDate: Date) => {
   return formattedDate;
 };
 
-export { getFormattedDate };
+const getVideoCover = (videoLink: string) => {
+  const startId = videoLink.indexOf("v=") + 2;
+  const videoId = videoLink.slice(startId);
+  const imageUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+
+  return imageUrl;
+};
+
+export { getFormattedDate, getVideoCover };
